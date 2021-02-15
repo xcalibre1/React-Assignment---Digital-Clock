@@ -1,15 +1,29 @@
-
-function App() {
-  const now = new Date().toLocaleTimeString();
-  const [Time, setTime] = useState(now);
-  useEffect(() => {
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      time: new Date().toLocaleTimeString(),
+      interval: ""
+    };
+  }
+  componentDidMount() {
     let id = setInterval(() => {
       let newTime = new Date().toLocaleTimeString();
-      setTime(newTime);
-    },1000);
-    return () => clearInterval(id);
-  }, [Time]);
-  return <div className="Clock"><h3>{Time}</h3></div>;
+      this.setState({ time: newTime });
+    }, 1000);
+    this.setState({ interval: id });
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
+  }
+
+  render() {
+    return (
+      <div classname="Clock">
+        <h3 id="time">{this.state.time}</h3>
+      </div>
+    );
+  }
 }
 
 export default App;
