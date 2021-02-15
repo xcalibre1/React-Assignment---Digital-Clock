@@ -6,7 +6,7 @@ function App() {
     let id = setInterval(() => {
       let newTime = new Date().toLocaleTimeString();
       setTime(newTime);
-    });
+    },1000);
     return () => clearInterval(id);
   }, [Time]);
   return <div className="Clock"><h3>{Time}</h3></div>;
